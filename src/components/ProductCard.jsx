@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { useStore } from "@/context/StoreContext";
@@ -12,6 +12,7 @@ export default function ProductCard({ product, index = 0 }) {
   const isWishlisted = wishlist.some((w) => w.id === product.id);
   const outOfStock = (product.stock ?? 0) <= 0;
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -55,26 +56,24 @@ export default function ProductCard({ product, index = 0 }) {
           <button
             onClick={(e) => {
               e.preventDefault();
-             if (!user) {
-  // redirect to login or show a toast
-  navigate("/login");
-  return;
-}
-
-toggleWishlist(product);
+              if (!user) {
+                navigate("/login");
+                return;
+              }
+              toggleWishlist(product);
             }}
             aria-label="Toggle wishlist"
-            className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition-colors"
+            className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition-colors"
           >
             <Heart
-              size={15}
+              size={13}
               className={isWishlisted ? "fill-olive text-olive" : "text-text-primary"}
             />
           </button>
 
           {!outOfStock && (
             <div
-              className={`absolute bottom-0 left-0 right-0 p-3 flex gap-2 transition-all duration-400 ${
+              className={`absolute bottom-0 left-0 right-0 p-2.5 flex gap-2 transition-all duration-400 ${
                 hovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
               }`}
             >
@@ -83,7 +82,7 @@ toggleWishlist(product);
                   e.preventDefault();
                   addToCart(product, 1);
                 }}
-                className="flex-1 bg-text-primary text-white text-[11px] tracking-[0.1em] uppercase py-3 rounded-[8px] hover:bg-olive transition-colors"
+                className="flex-1 bg-text-primary text-white text-[10px] tracking-[0.1em] uppercase py-2.5 rounded-[8px] hover:bg-olive transition-colors"
               >
                 Add to Cart
               </button>
@@ -91,14 +90,14 @@ toggleWishlist(product);
           )}
         </div>
 
-        <div className="mt-4 space-y-1">
+        <div className="mt-3 space-y-0.5">
           {product.brand && (
-            <p className="eyebrow text-[11px]">{product.brand}</p>
+            <p className="eyebrow text-[10px]">{product.brand}</p>
           )}
-          <h3 className="text-[19px] font-light text-text-primary">
+          <h3 className="text-[16px] font-light text-text-primary">
             {product.name}
           </h3>
-          <p className="text-[15px] text-text-secondary">${product.price}</p>
+          <p className="text-[13px] text-text-secondary">${product.price}</p>
         </div>
       </Link>
     </motion.div>

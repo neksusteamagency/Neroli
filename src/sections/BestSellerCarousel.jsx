@@ -2,13 +2,12 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Heart, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { products } from "@/data/products";
 import { useStore } from "@/context/StoreContext";
 
 export default function BestSellerCarousel() {
   const scrollerRef = useRef(null);
   const { toggleWishlist, wishlist } = useStore();
-
+const { products } = useStore();
   function scroll(dir) {
     scrollerRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
   }

@@ -165,6 +165,7 @@ export default function Account() {
                         <th className="px-5 py-4 text-[11px] tracking-[0.1em] uppercase text-text-secondary font-normal">Items</th>
                         <th className="px-5 py-4 text-[11px] tracking-[0.1em] uppercase text-text-secondary font-normal">Total</th>
                         <th className="px-5 py-4 text-[11px] tracking-[0.1em] uppercase text-text-secondary font-normal">Status</th>
+                      <th>Track</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -191,6 +192,11 @@ export default function Account() {
                               {o.status}
                             </span>
                           </td>
+                          <td className="px-5 py-4">
+  <Link to={`/track-order?id=${o.id}`} className="text-olive text-xs hover:underline">
+    Track →
+  </Link>
+</td>
                         </tr>
                       ))}
                     </tbody>

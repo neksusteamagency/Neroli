@@ -5,7 +5,7 @@ import SiteLayout from "@/layouts/SiteLayout";
 import AdminLayout from "@/layouts/AdminLayout";
 import RequireAdmin from "@/components/RequireAdmin";
 import ScrollToTop from "@/components/ScrollToTop";
-
+import TrackOrder from "@/pages/TrackOrder";
 import Home from "@/pages/Home";
 import Shop from "@/pages/Shop";
 import ProductDetail from "@/pages/ProductDetail";
@@ -14,7 +14,7 @@ import Login from "@/pages/Login";
 import Account from "@/pages/Account";
 import Checkout from "@/pages/Checkout";
 import Wishlist from "@/pages/Wishlist";
-
+import ScentGuide from "@/pages/ScentGuide";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import AdminProducts from "@/pages/admin/AdminProducts";
 import AdminInventory from "@/pages/admin/AdminInventory";
@@ -36,6 +36,8 @@ export default function App() {
               <Route path="/account" element={<Account />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/track-order" element={<TrackOrder />} />
+              <Route path="/scent-guide" element={<ScentGuide />} />
             </Route>
 
             <Route

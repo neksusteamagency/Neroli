@@ -3,20 +3,49 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useStore } from "@/context/StoreContext";
-import { products } from "@/data/products";
 
 export default function SearchDrawer() {
   const { isSearchOpen, setSearchOpen } = useStore();
   const [query, setQuery] = useState("");
-
+  const { products } = useStore();
   const results = useMemo(() => {
-    if (!query.trim()) return [];
-    const q = query.toLowerCase();
-    return products.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q)
-    );
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+
+    const tier1 = []; // name matches
+    const tier2 = []; // brand / notes / category / description / tags
+    const seen = new Set();
+
+    for (const p of products) {
+      const name = (p.name || "").toLowerCase();
+      const brand = (p.brand || "").toLowerCase();
+      const notes = (p.notes || "").toLowerCase();
+      const category = (p.category || "").toLowerCase();
+      const description = (p.description || "").toLowerCase();
+      const tags = Array.isArray(p.tags) ? p.tags.join(" ").toLowerCase() : "";
+      const ingredients = Array.isArray(p.ingredients)
+        ? p.ingredients.join(" ").toLowerCase()
+        : "";
+
+      if (name.includes(q)) {
+        tier1.push(p);
+        seen.add(p.id);
+      } else if (
+        brand.includes(q) ||
+        notes.includes(q) ||
+        category.includes(q) ||
+        description.includes(q) ||
+        tags.includes(q) ||
+        ingredients.includes(q)
+      ) {
+        if (!seen.has(p.id)) {
+          tier2.push(p);
+          seen.add(p.id);
+        }
+      }
+    }
+
+    return [...tier1, ...tier2];
   }, [query]);
 
   function close() {

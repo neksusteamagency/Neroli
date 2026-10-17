@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Pencil, Trash2, Plus } from "lucide-react";
 import { getAllProducts, createProduct, editProduct, removeProduct } from "@/utils/products";
 import ProductFormModal from "@/components/ProductFormModal";
-
+import { CATEGORY_TREE } from "@/data/products";
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,7 +72,7 @@ export default function AdminProducts() {
                     </div>
                   </td>
                   <td className="px-5 py-3">{p.name}</td>
-                  <td className="px-5 py-3 text-text-secondary">{p.category}</td>
+                  <td className="px-5 py-3 text-text-secondary">{CATEGORY_TREE[p.category]?.label || p.category}</td>
                   <td className="px-5 py-3">${p.price}</td>
                   <td className="px-5 py-3">
                     <span className={p.stock <= 0 ? "text-red-700" : p.stock <= 5 ? "text-amber-600" : ""}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { getAllProducts, editProduct } from "@/utils/products";
-
+import { CATEGORY_TREE } from "@/data/products";
 export default function AdminInventory() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,7 +45,7 @@ export default function AdminInventory() {
               products.map((p) => (
                 <tr key={p.id} className="border-b border-border last:border-0">
                   <td className="px-5 py-3 font-medium">{p.name}</td>
-                  <td className="px-5 py-3 text-text-secondary">{p.category}</td>
+                  <td className="px-5 py-3 text-text-secondary">{CATEGORY_TREE[p.category]?.label || p.category}</td>
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-2">
                       <button

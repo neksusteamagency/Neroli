@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { CATEGORY_TREE } from "@/data/products";
 
 export default function CollectionCard({ collection, index = 0 }) {
+  const meta = CATEGORY_TREE[collection.id];
+  // "Home & Office" redirects straight to Gadgets & Deco per the category rules
+  const targetId =
+    meta?.type === "redirect" ? meta.redirectTo : collection.id;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -11,7 +17,7 @@ export default function CollectionCard({ collection, index = 0 }) {
       transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
     >
       <Link
-        to={`/shop?category=${encodeURIComponent(collection.title)}`}
+        to={`/shop?category=${encodeURIComponent(targetId)}`}
         className="group block"
       >
         <div className="relative aspect-[3/4] rounded-card overflow-hidden bg-bg-secondary img-zoom-wrap">

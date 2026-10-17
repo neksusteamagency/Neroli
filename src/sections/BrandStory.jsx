@@ -4,14 +4,14 @@ import Button from "@/components/Button";
 
 export default function BrandStory() {
   return (
-    <section className="bg-bg-secondary">
-      <div className="grid lg:grid-cols-2">
+    <section className="bg-bg-secondary min-h-screen flex items-center">
+      <div className="grid lg:grid-cols-2 w-full min-h-screen lg:min-h-0">
         <motion.div
           initial={{ opacity: 0, scale: 1.05 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="aspect-[4/3] lg:aspect-auto"
+          className="aspect-[4/3] lg:aspect-auto lg:h-screen"
         >
           <img
             src="balcony.png"
@@ -19,7 +19,7 @@ export default function BrandStory() {
             className="w-full h-full object-cover"
           />
         </motion.div>
-        <div className="flex items-center px-6 sm:px-12 lg:px-20 py-16 lg:py-0 relative">
+        <div className="flex items-center px-6 sm:px-12 lg:px-20 py-16 lg:py-24 relative">
           <svg
             className="absolute right-6 top-10 opacity-10 hidden lg:block"
             width="160" height="220" viewBox="0 0 160 220" fill="none"

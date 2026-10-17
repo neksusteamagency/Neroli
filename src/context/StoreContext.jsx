@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-
+import { getAllProducts } from "@/utils/products";
 import {
   doc,
   getDoc,
@@ -29,6 +29,15 @@ const { user } = useAuth();
     }
   });
 
+
+  const [products, setProducts] = useState([]);
+const [productsLoading, setProductsLoading] = useState(true);
+
+useEffect(() => {
+  getAllProducts()
+    .then(setProducts)
+    .finally(() => setProductsLoading(false));
+}, []);
 
   const [wishlist, setWishlist] = useState([]);
 
@@ -118,6 +127,8 @@ const { user } = useAuth();
     setWishlistOpen,
     isSearchOpen,
     setSearchOpen,
+    products,
+productsLoading,
   };
 
   return (
